@@ -1,0 +1,3 @@
+C:/Users/User/CLionProjects/Milestone1/cmake-build-debug/CMakeFiles/Milestone1.dir
+C:/Users/User/CLionProjects/Milestone1/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/User/CLionProjects/Milestone1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
