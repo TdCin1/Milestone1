@@ -113,8 +113,24 @@ void File::writeFile(std::string filename) {
 
 
 //OPERATION
+float Operation::notOver(float value) {
+    float temp;
+    if (value>255){
+        temp = 255;
+    }
+    else if(value<=0){
+        temp = 0;
+    }
+    else{
+        temp = value;
+    }
+    return temp;
+}
+
+
 File Operation::Multiply(File &top, File &bottom) {
     // READING
+
     top.readHeader();
     top.readFile();
     bottom.readHeader();
@@ -143,10 +159,13 @@ File Operation::Multiply(File &top, File &bottom) {
 
 File Operation::Subtract(File &top, File &bottom) {
     // READING
-    top.readHeader();
-    top.readFile();
+    if(top.filename != "except"){
+        top.readHeader();
+        top.readFile();
+    }
     bottom.readHeader();
     bottom.readFile();
+
 
     // New File
     File tempFile("Subtract","../output/Subtract1",{});
@@ -215,16 +234,47 @@ File Operation::Screen(File &top, File &bottom) {
         File::pixel pix;
         unsigned char B,G,R;
         //B
-        int temp = (1-(((1-(float)top.pixel_vector.at(i).BGR.at(0)/255)*(1-(float)bottom.pixel_vector.at(i).BGR.at(0)/255))*255))+.5;
-        B = (unsigned char) temp;
+        float temp = .5+(255*(1-(((1-(float)top.pixel_vector.at(i).BGR.at(0)/255))*(1-(float)bottom.pixel_vector.at(i).BGR.at(0)/255))));
+        if (abs(temp)> 255){
+            temp =255;
+            B= (unsigned char)temp;
+        }
+        else if(abs(temp)<0){
+            temp = 0;
+            B = (unsigned char)temp;
+
+        }
+        else{
+            B = (unsigned char) temp;
+        }
 
         //G
-        temp = (1-(((1-(float)top.pixel_vector.at(i).BGR.at(1)/255)*(1-(float)bottom.pixel_vector.at(i).BGR.at(1)/255))*255))+.5;
-        G= temp;
+        temp = .5+(255*(1-((1-((float)top.pixel_vector.at(i).BGR.at(1)/255)))*(1-((float)bottom.pixel_vector.at(i).BGR.at(1)/255))));
+        if (abs(temp)> 255){
+            temp = 255;
+            G = (unsigned char)temp;
+        }
+        else if(abs(temp)<0){
+            temp = 0;
+            G = (unsigned char)temp;
+        }
+        else{
+            G = (unsigned char) temp;
+        }
 
         //R
-        temp = (1-(((1-(float)top.pixel_vector.at(i).BGR.at(2)/255)*(1-(float)bottom.pixel_vector.at(i).BGR.at(2)/255))*255))+.5;
-        R= temp;
+        temp = .5+(255*(1-((1-(float)top.pixel_vector.at(i).BGR.at(2)/255))*(1-(float)bottom.pixel_vector.at(i).BGR.at(2)/255)));
+        if (abs(temp)> 255){
+            temp = 255;
+            R = (unsigned char)temp;
+        }
+        else if(abs(temp)<0){
+            temp = 0;
+            R = (unsigned char)temp;
+        }
+        else{
+            R = (unsigned char) temp;
+        }
 
 
         pix.BGR.push_back(B);
@@ -236,6 +286,56 @@ File Operation::Screen(File &top, File &bottom) {
     return tempFile;
 }
 
+File Operation::Overlay(File &top, File &bottom) {
+    File result("result","../output/Overlay",{});
+    result.head = top.head;
+    for (int i = 0; i < (top.head.height * bottom.head.width); i++) {
+        File::pixel pix;
+        unsigned char B,G,R;
+        //B
+        if(((float)bottom.pixel_vector.at(i).BGR.at(0)/255) > .5f){
+            //cout << (int)top.pixel_vector.at(i).BGR.at(0)<<endl;
+            float temp = .5+(255*(1-(2*(((1-(float)top.pixel_vector.at(i).BGR.at(0)/255))*(1-(float)bottom.pixel_vector.at(i).BGR.at(0)/255)))));
+            B=(unsigned char)temp;
+        }
+        else{
+            float temp = .5f+(255*(2*((float)top.pixel_vector.at(i).BGR.at(0)/255)*((float)bottom.pixel_vector.at(i).BGR.at(0)/255)));
+            temp = notOver(temp);
+            B=(unsigned char)temp;
+        }
+
+        // G
+        if((float)(bottom.pixel_vector.at(i).BGR.at(1)/255) > .5f){
+            float temp = .5f+(255*(1-(2*(((1-((float)top.pixel_vector.at(i).BGR.at(1)/255)))*(1-((float)bottom.pixel_vector.at(i).BGR.at(1)/255))))));
+            temp = notOver(temp);
+            G=(unsigned char)temp;
+        }
+        else{
+            float temp = .5f+(255*(2*((float)top.pixel_vector.at(i).BGR.at(1)/255)*((float)bottom.pixel_vector.at(i).BGR.at(1)/255)));
+            temp = notOver(temp);
+            G=(unsigned char)temp;
+        }
+
+        // R
+        if((float)(bottom.pixel_vector.at(i).BGR.at(2)/255) > .5fls
+        ){
+            float temp = .5f+(255*(1-(2*(((1-((float)top.pixel_vector.at(i).BGR.at(2)/255)))*(1-((float)bottom.pixel_vector.at(i).BGR.at(2)/255))))));
+            temp = notOver(temp);
+            R =(unsigned char)temp;
+        }
+        else{
+            float temp = .5f+(255*(2*((float)top.pixel_vector.at(i).BGR.at(2)/255)*((float)bottom.pixel_vector.at(i).BGR.at(2)/255)));
+            temp = notOver(temp);
+            R =(unsigned char)temp;
+        }
+
+        pix.BGR.push_back(B);
+        pix.BGR.push_back(G);
+        pix.BGR.push_back(R);
+        result.pixel_vector.push_back(pix);
+    }
+    return result;
+}
 
 //TASKS
 void Operation::Task1() {
@@ -268,5 +368,68 @@ void Operation::Task3(){
 
     File result = this->Screen(afterMult,text);
     result.writeFile("af");
-    result.printFile();
+}
+
+void Operation::Task4(){
+    File layer2("layer2","../input/layer2.tga",{});
+    layer2.readHeader();
+    layer2.readFile();
+    File circles("circles","../input/circles.tga",{});
+    circles.readHeader();
+    circles.readFile();
+    File pattern2("pattern1","../input/pattern2.tga",{});
+
+    File temp = Multiply(circles,layer2);
+    temp.filename = "except";
+
+    File result = Subtract(temp,pattern2);
+    result.writeFile("Task4");
+}
+
+void Operation::Task5(){
+    //top
+    File layer1("layer1","../input/layer1.tga",{});
+    layer1.readHeader();
+    layer1.readFile();
+    //bottom
+    File pattern1("pattern1","../input/pattern1.tga",{});
+    pattern1.readHeader();
+    pattern1.readFile();
+
+    File temp = Overlay(layer1,pattern1);
+    temp.writeFile("Task5");
+}
+
+void Operation::Task6() {
+    File car("car", "../input/car.tga", {});
+    car.readHeader();
+    car.readFile();
+    for (int i = 0; i < (car.head.height * car.head.width); i++) {
+        int temp = (int)car.pixel_vector.at(i).BGR.at(1) + 200;
+        if (temp>255){
+            temp= 255;
+        }
+        car.pixel_vector.at(i).BGR.at(1) = (unsigned char)temp;
+    }
+    car.writeFile("Task6");
+}
+
+void Operation::Task7(){
+    File car("car", "../input/car.tga", {});
+    car.readHeader();
+    car.readFile();
+    car.writeFile("Ogcar");
+    for (int i = 0; i < (car.head.height * car.head.width); i++) {
+        float temp = (((((float)(car.pixel_vector.at(i).BGR.at(2)))/255)*4)*255)+.5f;
+        if(temp>255){
+            temp =255;
+        }
+        car.pixel_vector.at(i).BGR.at(2) = (unsigned char)temp;
+        car.pixel_vector.at(i).BGR.at(0) = (unsigned char)0;
+    }
+    car.writeFile("Task7");
+}
+
+void Operation::Task8(){
+
 }

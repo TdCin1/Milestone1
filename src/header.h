@@ -51,10 +51,16 @@ public:
     File Multiply(File &top, File &bottom);
     File Subtract(File &top, File &bottom);
     File Screen(File &top, File &bottom);
+    File Overlay(File &top, File &bottom);
+    float notOver(float value);
 
     //Tasks
     void Task1();
     void Task2();
     void Task3();
-
+    void Task4();
+    void Task5();
+    void Task6();
+    void Task7();
+    void Task8();
 };
