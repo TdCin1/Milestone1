@@ -68,19 +68,19 @@ include CMakeFiles/Milestone1.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/Milestone1.dir/flags.make
 
-CMakeFiles/Milestone1.dir/main.cpp.obj: CMakeFiles/Milestone1.dir/flags.make
-CMakeFiles/Milestone1.dir/main.cpp.obj: C:/Users/Landon\ Agic/CLionProjects/Milestone1/Milestone1/main.cpp
-CMakeFiles/Milestone1.dir/main.cpp.obj: CMakeFiles/Milestone1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Landon Agic\CLionProjects\Milestone1\Milestone1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Milestone1.dir/main.cpp.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Milestone1.dir/main.cpp.obj -MF CMakeFiles\Milestone1.dir\main.cpp.obj.d -o CMakeFiles\Milestone1.dir\main.cpp.obj -c "C:\Users\Landon Agic\CLionProjects\Milestone1\Milestone1\main.cpp"
+CMakeFiles/Milestone1.dir/src/main.cpp.obj: CMakeFiles/Milestone1.dir/flags.make
+CMakeFiles/Milestone1.dir/src/main.cpp.obj: C:/Users/Landon\ Agic/CLionProjects/Milestone1/Milestone1/src/main.cpp
+CMakeFiles/Milestone1.dir/src/main.cpp.obj: CMakeFiles/Milestone1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="C:\Users\Landon Agic\CLionProjects\Milestone1\Milestone1\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/Milestone1.dir/src/main.cpp.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/Milestone1.dir/src/main.cpp.obj -MF CMakeFiles\Milestone1.dir\src\main.cpp.obj.d -o CMakeFiles\Milestone1.dir\src\main.cpp.obj -c "C:\Users\Landon Agic\CLionProjects\Milestone1\Milestone1\src\main.cpp"
 
-CMakeFiles/Milestone1.dir/main.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Milestone1.dir/main.cpp.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Landon Agic\CLionProjects\Milestone1\Milestone1\main.cpp" > CMakeFiles\Milestone1.dir\main.cpp.i
+CMakeFiles/Milestone1.dir/src/main.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/Milestone1.dir/src/main.cpp.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "C:\Users\Landon Agic\CLionProjects\Milestone1\Milestone1\src\main.cpp" > CMakeFiles\Milestone1.dir\src\main.cpp.i
 
-CMakeFiles/Milestone1.dir/main.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Milestone1.dir/main.cpp.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Landon Agic\CLionProjects\Milestone1\Milestone1\main.cpp" -o CMakeFiles\Milestone1.dir\main.cpp.s
+CMakeFiles/Milestone1.dir/src/main.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/Milestone1.dir/src/main.cpp.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.2\bin\mingw\bin\G__~1.EXE $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "C:\Users\Landon Agic\CLionProjects\Milestone1\Milestone1\src\main.cpp" -o CMakeFiles\Milestone1.dir\src\main.cpp.s
 
 CMakeFiles/Milestone1.dir/src/header.cpp.obj: CMakeFiles/Milestone1.dir/flags.make
 CMakeFiles/Milestone1.dir/src/header.cpp.obj: C:/Users/Landon\ Agic/CLionProjects/Milestone1/Milestone1/src/header.cpp
@@ -98,13 +98,13 @@ CMakeFiles/Milestone1.dir/src/header.cpp.s: cmake_force
 
 # Object files for target Milestone1
 Milestone1_OBJECTS = \
-"CMakeFiles/Milestone1.dir/main.cpp.obj" \
+"CMakeFiles/Milestone1.dir/src/main.cpp.obj" \
 "CMakeFiles/Milestone1.dir/src/header.cpp.obj"
 
 # External object files for target Milestone1
 Milestone1_EXTERNAL_OBJECTS =
 
-Milestone1.exe: CMakeFiles/Milestone1.dir/main.cpp.obj
+Milestone1.exe: CMakeFiles/Milestone1.dir/src/main.cpp.obj
 Milestone1.exe: CMakeFiles/Milestone1.dir/src/header.cpp.obj
 Milestone1.exe: CMakeFiles/Milestone1.dir/build.make
 Milestone1.exe: CMakeFiles/Milestone1.dir/linkLibs.rsp

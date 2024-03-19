@@ -82,13 +82,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="C:/Users/Landon Agic/CLionProjects/Milestone1/Milestone1/main.cpp">
-			<Option target="Milestone1"/>
-		</Unit>
 		<Unit filename="C:/Users/Landon Agic/CLionProjects/Milestone1/Milestone1/src/header.cpp">
 			<Option target="Milestone1"/>
 		</Unit>
 		<Unit filename="C:/Users/Landon Agic/CLionProjects/Milestone1/Milestone1/src/header.h">
+			<Option target="Milestone1"/>
+		</Unit>
+		<Unit filename="C:/Users/Landon Agic/CLionProjects/Milestone1/Milestone1/src/main.cpp">
 			<Option target="Milestone1"/>
 		</Unit>
 		<Unit filename="C:/Users/Landon Agic/CLionProjects/Milestone1/Milestone1/CMakeLists.txt">
