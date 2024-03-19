@@ -63,4 +63,6 @@ public:
     void Task6();
     void Task7();
     void Task8();
+    void Task9();
+    void Task10();
 };

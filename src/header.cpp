@@ -293,8 +293,7 @@ File Operation::Overlay(File &top, File &bottom) {
         File::pixel pix;
         unsigned char B,G,R;
         //B
-        if(((float)bottom.pixel_vector.at(i).BGR.at(0)/255) > .5f){
-            //cout << (int)top.pixel_vector.at(i).BGR.at(0)<<endl;
+        if((((float)bottom.pixel_vector.at(i).BGR.at(0))/255) > .5f){
             float temp = .5+(255*(1-(2*(((1-(float)top.pixel_vector.at(i).BGR.at(0)/255))*(1-(float)bottom.pixel_vector.at(i).BGR.at(0)/255)))));
             B=(unsigned char)temp;
         }
@@ -305,7 +304,7 @@ File Operation::Overlay(File &top, File &bottom) {
         }
 
         // G
-        if((float)(bottom.pixel_vector.at(i).BGR.at(1)/255) > .5f){
+        if(((float)(bottom.pixel_vector.at(i).BGR.at(1))/255) > .5f){
             float temp = .5f+(255*(1-(2*(((1-((float)top.pixel_vector.at(i).BGR.at(1)/255)))*(1-((float)bottom.pixel_vector.at(i).BGR.at(1)/255))))));
             temp = notOver(temp);
             G=(unsigned char)temp;
@@ -317,8 +316,7 @@ File Operation::Overlay(File &top, File &bottom) {
         }
 
         // R
-        if((float)(bottom.pixel_vector.at(i).BGR.at(2)/255) > .5fls
-        ){
+        if(((float)(bottom.pixel_vector.at(i).BGR.at(2))/255) > .5f){
             float temp = .5f+(255*(1-(2*(((1-((float)top.pixel_vector.at(i).BGR.at(2)/255)))*(1-((float)bottom.pixel_vector.at(i).BGR.at(2)/255))))));
             temp = notOver(temp);
             R =(unsigned char)temp;
@@ -431,5 +429,95 @@ void Operation::Task7(){
 }
 
 void Operation::Task8(){
+    File car("car","../input/car.tga",{});
+    car.readHeader();
+    car.readFile();
+    File blue("blue","../ouput/blue.tga",{});
+    File red("red","../ouput/red.tga",{});
+    File green("green","../ouput/green.tga",{});
+    blue.head = car.head;
+    red.head = car.head;
+    green.head = car.head;
 
+    for (int i = 0; i < (car.head.height * car.head.width); i++) {
+        File::pixel red_pixel;
+        File::pixel blue_pixel;
+        File::pixel green_pixel;
+        //Blue
+        blue_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(0));
+        blue_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(0));
+        blue_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(0));
+
+        //Green
+        green_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(1));
+        green_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(1));
+        green_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(1));
+
+        //Red
+        red_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(2));
+        red_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(2));
+        red_pixel.BGR.push_back(car.pixel_vector.at(i).BGR.at(2));
+
+        //Files
+        blue.pixel_vector.push_back(blue_pixel);
+        green.pixel_vector.push_back(green_pixel);
+        red.pixel_vector.push_back(red_pixel);
+    }
+    blue.writeFile("Task8Blue");
+    green.writeFile("Task8Green");
+    red.writeFile("Task8Red");
+}
+
+void Operation::Task9(){
+    File blue("blue","../input/layer_blue.tga",{});
+    blue.readHeader();
+    blue.readFile();
+    File green("green","../input/layer_green.tga",{});
+    green.readHeader();
+    green.readFile();
+    File red("red","../input/layer_red.tga",{});
+    red.readHeader();
+    red.readFile();
+
+    File final("final","../output/final.tga",{});
+    final.head = blue.head;
+
+    for (int i = 0; i < (blue.head.height * blue.head.width); i++) {
+        File::pixel pixel;
+        unsigned char B, G, R;
+        B = blue.pixel_vector.at(i).BGR.at(0);
+        G = green.pixel_vector.at(i).BGR.at(0);
+        R = red.pixel_vector.at(i).BGR.at(0);
+
+        pixel.BGR.push_back(B);
+        pixel.BGR.push_back(G);
+        pixel.BGR.push_back(R);
+
+        final.pixel_vector.push_back(pixel);
+
+    }
+    final.writeFile("Task9");
+}
+
+void Operation::Task10() {
+    File text2("text2", "../input/text2.tga", {});
+    text2.readHeader();
+    text2.readFile();
+    File opposite("opposite","../ouptut/opposite.tga",{});
+    opposite.head = text2.head;
+
+    for (int i = ((text2.head.height * text2.head.width) -1); i >= 0 ; i--) {
+        unsigned char B,G,R;
+        File::pixel pix;
+
+        B = text2.pixel_vector.at(i).BGR.at(0);
+        G = text2.pixel_vector.at(i).BGR.at(1);
+        R = text2.pixel_vector.at(i).BGR.at(2);
+        pix.BGR.push_back(B);
+        pix.BGR.push_back(G);
+        pix.BGR.push_back(R);
+        opposite.pixel_vector.push_back(pix);
+    }
+
+    opposite.writeFile("Task10");
 }

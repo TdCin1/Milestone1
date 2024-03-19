@@ -11,6 +11,6 @@ using namespace std;
 int main() {
     Operation op;
 
-    op.Task5();
+    op.Task10();
     return 0;
 }
