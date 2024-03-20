@@ -83,7 +83,7 @@ void File::printFile(){
 }
 
 void File::writeFile(std::string filename) {
-    filename.insert(0,"../output/");
+    filename.insert(0,"./output/");
     filename.append(".tga");
     ofstream tempFile(filename, std::ios::binary);
     //print header
@@ -137,7 +137,7 @@ File Operation::Multiply(File &top, File &bottom) {
     bottom.readFile();
 
     // New File
-    File tempFile("Multiply","../output/Multiply1",{});
+    File tempFile("Multiply","./output/Multiply1",{});
     tempFile.head = top.head;
 
     // Math
@@ -168,7 +168,7 @@ File Operation::Subtract(File &top, File &bottom) {
 
 
     // New File
-    File tempFile("Subtract","../output/Subtract1",{});
+    File tempFile("Subtract","./output/Subtract1",{});
     tempFile.head = top.head;
 
     // Math
@@ -227,7 +227,7 @@ File Operation::Subtract(File &top, File &bottom) {
 
 File Operation::Screen(File &top, File &bottom) {
     // New File
-    File tempFile("Screen","../output/Screen",{});
+    File tempFile("Screen","./output/Screen",{});
     tempFile.head = top.head;
 
     for(int i=0;i<(top.head.height * bottom.head.width);i++){
@@ -287,7 +287,7 @@ File Operation::Screen(File &top, File &bottom) {
 }
 
 File Operation::Overlay(File &top, File &bottom) {
-    File result("result","../output/Overlay",{});
+    File result("result","./output/Overlay",{});
     result.head = top.head;
     for (int i = 0; i < (top.head.height * bottom.head.width); i++) {
         File::pixel pix;
@@ -337,69 +337,69 @@ File Operation::Overlay(File &top, File &bottom) {
 
 //TASKS
 void Operation::Task1() {
-    File layer1("layer1","../input/layer1.tga",{});
-    File pattern1("pattern1","../input/pattern1.tga",{});
+    File layer1("layer1","./input/layer1.tga",{});
+    File pattern1("pattern1","./input/pattern1.tga",{});
     File temp = this->Multiply(layer1,pattern1);
-    temp.writeFile("Task1");
+    temp.writeFile("part1");
 }
 
 void Operation::Task2(){
-    File layer2("layer2","../input/layer2.tga",{});
-    File car("car","../input/car.tga",{});
+    File layer2("layer2","./input/layer2.tga",{});
+    File car("car","./input/car.tga",{});
     Operation op;
     File temp = this->Subtract(car, layer2);
-    temp.writeFile("task2");
+    temp.writeFile("part2");
 }
 
 void Operation::Task3(){
-    File layer1("layer1","../input/layer1.tga",{});
-    File pattern2("pattern2","../input/pattern2.tga",{});
+    File layer1("layer1","./input/layer1.tga",{});
+    File pattern2("pattern2","./input/pattern2.tga",{});
     layer1.readHeader();
     layer1.readFile();
     pattern2.readHeader();
     pattern2.readFile();
     File afterMult = this->Multiply(layer1,pattern2);
 
-    File text("text","../input/text.tga",{});
+    File text("text","./input/text.tga",{});
     text.readHeader();
     text.readFile();
 
     File result = this->Screen(afterMult,text);
-    result.writeFile("af");
+    result.writeFile("part3");
 }
 
 void Operation::Task4(){
-    File layer2("layer2","../input/layer2.tga",{});
+    File layer2("layer2","./input/layer2.tga",{});
     layer2.readHeader();
     layer2.readFile();
-    File circles("circles","../input/circles.tga",{});
+    File circles("circles","./input/circles.tga",{});
     circles.readHeader();
     circles.readFile();
-    File pattern2("pattern1","../input/pattern2.tga",{});
+    File pattern2("pattern1","./input/pattern2.tga",{});
 
     File temp = Multiply(circles,layer2);
     temp.filename = "except";
 
     File result = Subtract(temp,pattern2);
-    result.writeFile("Task4");
+    result.writeFile("part4");
 }
 
 void Operation::Task5(){
     //top
-    File layer1("layer1","../input/layer1.tga",{});
+    File layer1("layer1","./input/layer1.tga",{});
     layer1.readHeader();
     layer1.readFile();
     //bottom
-    File pattern1("pattern1","../input/pattern1.tga",{});
+    File pattern1("pattern1","./input/pattern1.tga",{});
     pattern1.readHeader();
     pattern1.readFile();
 
     File temp = Overlay(layer1,pattern1);
-    temp.writeFile("Task5");
+    temp.writeFile("part5");
 }
 
 void Operation::Task6() {
-    File car("car", "../input/car.tga", {});
+    File car("car", "./input/car.tga", {});
     car.readHeader();
     car.readFile();
     for (int i = 0; i < (car.head.height * car.head.width); i++) {
@@ -409,14 +409,13 @@ void Operation::Task6() {
         }
         car.pixel_vector.at(i).BGR.at(1) = (unsigned char)temp;
     }
-    car.writeFile("Task6");
+    car.writeFile("part6");
 }
 
 void Operation::Task7(){
-    File car("car", "../input/car.tga", {});
+    File car("car", "./input/car.tga", {});
     car.readHeader();
     car.readFile();
-    car.writeFile("Ogcar");
     for (int i = 0; i < (car.head.height * car.head.width); i++) {
         float temp = (((((float)(car.pixel_vector.at(i).BGR.at(2)))/255)*4)*255)+.5f;
         if(temp>255){
@@ -425,16 +424,16 @@ void Operation::Task7(){
         car.pixel_vector.at(i).BGR.at(2) = (unsigned char)temp;
         car.pixel_vector.at(i).BGR.at(0) = (unsigned char)0;
     }
-    car.writeFile("Task7");
+    car.writeFile("part7");
 }
 
 void Operation::Task8(){
-    File car("car","../input/car.tga",{});
+    File car("car","./input/car.tga",{});
     car.readHeader();
     car.readFile();
-    File blue("blue","../ouput/blue.tga",{});
-    File red("red","../ouput/red.tga",{});
-    File green("green","../ouput/green.tga",{});
+    File blue("blue","./ouput/blue.tga",{});
+    File red("red","./ouput/red.tga",{});
+    File green("green","./ouput/green.tga",{});
     blue.head = car.head;
     red.head = car.head;
     green.head = car.head;
@@ -463,23 +462,23 @@ void Operation::Task8(){
         green.pixel_vector.push_back(green_pixel);
         red.pixel_vector.push_back(red_pixel);
     }
-    blue.writeFile("Task8Blue");
-    green.writeFile("Task8Green");
-    red.writeFile("Task8Red");
+    blue.writeFile("part8_b");
+    green.writeFile("part8_g");
+    red.writeFile("part8_r");
 }
 
 void Operation::Task9(){
-    File blue("blue","../input/layer_blue.tga",{});
+    File blue("blue","./input/layer_blue.tga",{});
     blue.readHeader();
     blue.readFile();
-    File green("green","../input/layer_green.tga",{});
+    File green("green","./input/layer_green.tga",{});
     green.readHeader();
     green.readFile();
-    File red("red","../input/layer_red.tga",{});
+    File red("red","./input/layer_red.tga",{});
     red.readHeader();
     red.readFile();
 
-    File final("final","../output/final.tga",{});
+    File final("final","put/final.tga",{});
     final.head = blue.head;
 
     for (int i = 0; i < (blue.head.height * blue.head.width); i++) {
@@ -496,14 +495,14 @@ void Operation::Task9(){
         final.pixel_vector.push_back(pixel);
 
     }
-    final.writeFile("Task9");
+    final.writeFile("part9");
 }
 
 void Operation::Task10() {
-    File text2("text2", "../input/text2.tga", {});
+    File text2("text2", "./input/text2.tga", {});
     text2.readHeader();
     text2.readFile();
-    File opposite("opposite","../ouptut/opposite.tga",{});
+    File opposite("opposite","./ouptut/opposite.tga",{});
     opposite.head = text2.head;
 
     for (int i = ((text2.head.height * text2.head.width) -1); i >= 0 ; i--) {
@@ -519,5 +518,5 @@ void Operation::Task10() {
         opposite.pixel_vector.push_back(pix);
     }
 
-    opposite.writeFile("Task10");
+    opposite.writeFile("part10");
 }

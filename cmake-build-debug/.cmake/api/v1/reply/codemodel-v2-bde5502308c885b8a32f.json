@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "C:/Users/Landon Agic/CLionProjects/Milestone1/Milestone1/cmake-build-debug",
-		"source" : "C:/Users/Landon Agic/CLionProjects/Milestone1/Milestone1"
+		"build" : "C:/Users/User/CLionProjects/Milestone1/cmake-build-debug",
+		"source" : "C:/Users/User/CLionProjects/Milestone1"
 	},
 	"version" : 
 	{
