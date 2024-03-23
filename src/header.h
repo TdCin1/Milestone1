@@ -47,12 +47,28 @@ public:
 
 class Operation{
 public:
+    struct method{
+        string name;
+        int additionalArgument;
+        bool isint;
+        int int_argument = 0;
+    };
+
+    //Setup
+    Operation(int argc, char *argv[]);
+
     //Operations
     File Multiply(File &top, File &bottom);
     File Subtract(File &top, File &bottom);
     File Screen(File &top, File &bottom);
     File Overlay(File &top, File &bottom);
+
     float notOver(float value);
+    vector<method> method_vector;
+    vector<File> file_vector{};
+
+    int included_methods;
+    bool failure = false;
 
     //Tasks
     void Task1();

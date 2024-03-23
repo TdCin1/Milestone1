@@ -113,6 +113,89 @@ void File::writeFile(std::string filename) {
 
 
 //OPERATION
+Operation::Operation(int argc, char *argv[]) {
+    included_methods = 0;
+    vector<string> methods = {"multiply","subtract","overlay","screen","combine","flip","onlyred","onlygreen"
+            ,"onlyblue","addred","addgreen","addblue","scalered","scalegreen","scaleblue"};
+
+    for(int i=0;i<methods.size();i++){
+        for(int j=0;j<argc;j++){
+            string temp = argv[j];
+            if(temp==methods.at(i)){
+                method temp_method;
+                temp_method.name=temp;
+                temp_method.isint = false;
+
+                if(temp == "multiply"){
+                    temp_method.additionalArgument = 1;
+                }
+                else if(temp=="subtract"){
+                    temp_method.additionalArgument = 1;
+                }
+                else if(temp=="overlay"){
+                    temp_method.additionalArgument = 1;
+                }
+                else if(temp=="screen"){
+                    temp_method.additionalArgument = 1;
+                }
+                else if(temp=="combine"){
+                    temp_method.additionalArgument = 2;
+                }
+                else if(temp=="flip"){
+                    temp_method.additionalArgument = 0;
+                }
+                else if(temp=="onlygreen"){
+                    temp_method.additionalArgument = 0;
+                }
+                else if(temp=="onlyblue"){
+                    temp_method.additionalArgument = 0;
+                }
+                else if(temp=="onlyred"){
+                    temp_method.additionalArgument = 0;
+                }
+                else if(temp=="addred"){
+                    temp_method.additionalArgument = 1;
+                    temp_method.isint = true;
+                }
+                else if(temp=="addgreen"){
+                    temp_method.additionalArgument = 1;
+                    temp_method.isint = true;
+                }
+                else if(temp=="addblue"){
+                    temp_method.additionalArgument = 1;
+                    temp_method.isint = true;
+                }
+                else if(temp=="scalered"){
+                    temp_method.additionalArgument = 1;
+                    temp_method.isint = true;
+                }
+                else if(temp=="scalegreen"){
+                    temp_method.additionalArgument = 1;
+                    temp_method.isint = true;
+                }
+                else if(temp=="scaleblue"){
+                    temp_method.additionalArgument = 1;
+                    temp_method.isint = true;
+                }
+                else{
+                    temp_method.additionalArgument = 0;
+                    failure = true;
+                }
+
+                included_methods++;
+                method_vector.push_back(temp_method);
+            }
+        }
+    }
+    if(included_methods = 0){
+        failure = true;
+    }
+}
+
+
+
+
+
 float Operation::notOver(float value) {
     float temp;
     if (value>255){
