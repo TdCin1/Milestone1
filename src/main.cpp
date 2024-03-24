@@ -82,44 +82,106 @@ int main(int argc, char *argv[]){
         return 0;
     }
 
-    //Check for correct amount of arguments and add arguments to file vector
-    for(int i=0;i<op.additionalArgument;i++){
-        if(argc<(4+op.additionalArgument)){
-            cout<<"Missing argument.";
-            return 0;
-        }
-        int temp = 4 + i;
-        string var = argv[temp];
-        if(op.isint){
-            try{
-                op.int_argument = stoi(var);
-            }
-            catch (...){
-                cout<<"Invalid argument, expected number.";
-                return 0;
-            }
-        }
-        else{
-            string temp_path= var;
-            if(!(temp_path.substr(0,6)=="input/")){
-                temp_path = var.insert(0,"./input/");
-            }
 
-            ifstream temp(temp_path);
-            if(!temp.is_open()){
-                cout<<"Invalid argument, file does not exist.";
+
+
+    //Check for correct amount of arguments and add arguments to file vector
+    int current_argc = 4;
+    for(int i=0;i<op.included_methods;i++){
+        File newTracking("newTracking","./output/newTracking.tga",{});
+        newTracking.head = op.file_vector.at(1).head;
+
+        for(int j=0;j<op.method_vector.at(i).additionalArgument;j++){
+            if(argc <= current_argc){
+                cout<<"Missing argument.";
                 return 0;
             }
-            temp.close();
-            File adding(var,temp_path,{});
-            adding.readHeader();
-            adding.readFile();
-            op.file_vector.push_back(adding);
+            string var =argv[current_argc];
+
+
+            if(op.method_vector.at(i).isint){
+                try{
+                    op.method_vector.at(i).int_argument = stoi(var);
+                }
+                catch (...){
+                    cout<<"Invalid argument, expected number.";
+                    return 0;
+                }
+            }
+            else{
+                string temp_path = var;
+
+                if(!(temp_path.substr(0,6)=="input/")){
+                    temp_path = var.insert(0,"./input/");
+                }
+
+                ifstream temp(temp_path);
+                if(!temp.is_open()){
+                    cout<<"Invalid argument, file does not exist.";
+                    return 0;
+                }
+                temp.close();
+                File adding(var,temp_path,{});
+                adding.readHeader();
+                adding.readFile();
+                op.method_vector.at(i).methodFiles.push_back(adding);
+                current_argc += 1;
+            }
+        }
+        try{
+            string temp_check = argv[current_argc];
+            if(!op.checkMethod(temp_check)){
+                cout<< "Invalid method name.";
+            }
+        }
+        catch (...){
+            if(i != (op.included_methods - 1)){
+                cout<<"Missing argument.";
+            }
+        }
+        if(op.method_vector.at(i).additionalArgument==0){
+            //current_argc+=1;
+        }
+        current_argc += 1;
+
+        // File things
+        if(op.method_vector.at(i).name == "multiply"){
+            cout<<"Multiplyed";
+            newTracking = op.Multiply(op.file_vector.at(1),op.method_vector.at(i).methodFiles.at(0));
+            op.file_vector.at(1) = newTracking;
+        }
+        else if(op.method_vector.at(i).name == ""){
+
+        }
+        else if(op.method_vector.at(i).name == ""){
+
+        }
+        else if(op.method_vector.at(i).name == ""){
+
+        }
+        else if(op.method_vector.at(i).name == ""){
+
+        }
+        else if(op.method_vector.at(i).name == ""){
+
+        }
+        else if(op.method_vector.at(i).name == ""){
+
+        }
+        else if(op.method_vector.at(i).name == ""){
+
+        }
+        else if(op.method_vector.at(i).name == ""){
+
+        }
+        else if(op.method_vector.at(i).name == ""){
+
         }
 
     }
 
-
+    //Print with the correct things
+    op.file_vector.at(1).writeFile(op.file_vector.at(0).address);
 
     return 0;
 }

@@ -49,6 +49,7 @@ class Operation{
 public:
     struct method{
         string name;
+        vector<File> methodFiles{};
         int additionalArgument;
         bool isint;
         int int_argument = 0;
@@ -70,6 +71,7 @@ public:
     int included_methods;
     bool failure = false;
 
+    bool checkMethod(string method);
     //Tasks
     void Task1();
     void Task2();

@@ -83,7 +83,6 @@ void File::printFile(){
 }
 
 void File::writeFile(std::string filename) {
-    filename.insert(0,"./output/");
     filename.append(".tga");
     ofstream tempFile(filename, std::ios::binary);
     //print header
@@ -118,10 +117,10 @@ Operation::Operation(int argc, char *argv[]) {
     vector<string> methods = {"multiply","subtract","overlay","screen","combine","flip","onlyred","onlygreen"
             ,"onlyblue","addred","addgreen","addblue","scalered","scalegreen","scaleblue"};
 
-    for(int i=0;i<methods.size();i++){
-        for(int j=0;j<argc;j++){
-            string temp = argv[j];
-            if(temp==methods.at(i)){
+    for(int i=0;i<argc;i++){
+        for(int j=0;j<methods.size();j++){
+            string temp = argv[i];
+            if(temp==methods.at(j)){
                 method temp_method;
                 temp_method.name=temp;
                 temp_method.isint = false;
@@ -187,14 +186,23 @@ Operation::Operation(int argc, char *argv[]) {
             }
         }
     }
-    if(included_methods = 0){
+    if(included_methods == 0){
         failure = true;
     }
 }
 
 
 
-
+bool Operation::checkMethod(std::string method) {
+    vector<string> methods = {"multiply","subtract","overlay","screen","combine","flip","onlyred","onlygreen"
+            ,"onlyblue","addred","addgreen","addblue","scalered","scalegreen","scaleblue"};
+    for(int i = 0; i<methods.size();i++){
+        if(method == methods.at(i)){
+            return true;
+        }
+    }
+    return false;
+}
 
 float Operation::notOver(float value) {
     float temp;
@@ -429,7 +437,8 @@ void Operation::Task1() {
 void Operation::Task2(){
     File layer2("layer2","./input/layer2.tga",{});
     File car("car","./input/car.tga",{});
-    Operation op;
+    //IS BROKEN RN
+    //Operation op;
     File temp = this->Subtract(car, layer2);
     temp.writeFile("part2");
 }
